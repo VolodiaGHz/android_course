@@ -3,4 +3,9 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="background">#03A9F4</color>
+    <color name="enterButton">#19CA29</color>
+    <color name="welcomeBackground">#22C90A</color>
+    <color name="logoutButton">#F44336</color>
+
 </resources>

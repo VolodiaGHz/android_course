@@ -2,12 +2,15 @@ package com.example.projforlabs;
 
 public class User {
 
-    public String email, username, phone;
+    private String email;
+    private String username;
+    private String phone;
 
     public User(){
+
     }
 
-    public User(String email, String username, String phone){
+    public User(String email, String username, String phone) {
         this.email = email;
         this.username = username;
         this.phone = phone;
