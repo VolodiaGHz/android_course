@@ -20,11 +20,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class BasicActivity extends AppCompatActivity {
+public class WelcomeActivity extends AppCompatActivity {
 
-    TextView tv;
-    Button btn;
-    FirebaseAuth fAuth;
+    private TextView tv;
+    private Button btn;
+    private FirebaseAuth fAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private long backPressedTime;
     private DatabaseReference databaseReference;
@@ -34,9 +34,9 @@ public class BasicActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_basic);
+        setContentView(R.layout.activity_welcome);
 
-        tv = findViewById(R.id.textView3);
+        tv = findViewById(R.id.welcome);
         btn = findViewById(R.id.logout);
         fAuth = FirebaseAuth.getInstance();
 
@@ -50,20 +50,21 @@ public class BasicActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                Intent i = new Intent(BasicActivity.this, LoginActivity.class);
+                Intent i = new Intent(WelcomeActivity.this, LoginActivity.class);
                 startActivity(i);
-                Toast.makeText(BasicActivity.this, "Logout!", Toast.LENGTH_LONG).show();
+                Toast.makeText(WelcomeActivity.this, "Logout!", Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    public void readData() {
+    private void readData() {
         FirebaseUser fUser = fAuth.getCurrentUser();
         databaseReference.orderByChild("email").equalTo(fUser.getEmail()).addChildEventListener(new ChildEventListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                 User user = dataSnapshot.getValue(User.class);
-                tv.setText("Welcome "+ user.getUsername());
+                tv.setText(getString(R.string.welcome) + " " + user.getUsername());
             }
 
             @Override
@@ -92,12 +93,13 @@ public class BasicActivity extends AppCompatActivity {
     @SuppressLint("NewApi")
     @Override
     public void onBackPressed() {
-        if (backPressedTime + 2000 > System.currentTimeMillis()){
+        final int time = 2000;
+        if (backPressedTime + time > System.currentTimeMillis()) {
             fAuth.getInstance().signOut();
             finishAffinity();
             finish();
-        }else {
-            Toast.makeText(getBaseContext(), "Press again to exit",Toast.LENGTH_SHORT ).show();
+        } else {
+            Toast.makeText(getBaseContext(), R.string.pressToExit, Toast.LENGTH_SHORT).show();
         }
         backPressedTime = System.currentTimeMillis();
 
