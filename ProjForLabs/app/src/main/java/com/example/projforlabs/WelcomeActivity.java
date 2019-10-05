@@ -17,7 +17,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private TextView tv;
     private Button btn;
-    private static int time;
+    static int time;
     private FirebaseAuth fAuth;
     private long backPressedTime;
 
@@ -53,38 +53,6 @@ public class WelcomeActivity extends AppCompatActivity {
         });
     }
 
-//    private void readData() {
-//        FirebaseUser fUser = fAuth.getCurrentUser();
-//        databaseReference.orderByChild("email").equalTo(fUser.getEmail()).addChildEventListener(new ChildEventListener() {
-//            @SuppressLint("SetTextI18n")
-//            @Override
-//            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-//                User user = dataSnapshot.getValue(User.class);
-//                tv.setText(getString(R.string.welcome) + " " + user.getUsername());
-//            }
-//
-//            @Override
-//            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//
-//            }
-//
-//            @Override
-//            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-//
-//            }
-//
-//            @Override
-//            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//
-//        });
-//    }
 
     @SuppressLint("NewApi")
     @Override

@@ -32,9 +32,9 @@ public class SingUpActivity extends AppCompatActivity {
     private TextView tv;
     private FirebaseAuth fAuth;
 
-    static final String emPatt = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-    static final String psPatt = ".{8,}";
-    static final String pnPatt = "[+]380[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]";
+    static final String EM_PATT = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    static final String PS_PATT = ".{8,}";
+    static final String PN_PATT = "[+]380[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]";
 
 
     @Override
@@ -130,13 +130,13 @@ public class SingUpActivity extends AppCompatActivity {
         } else if (ps.isEmpty()) {
             pass.setError("Please enter password!");
             pass.requestFocus();
-        } else if (!pn.matches(pnPatt)) {
+        } else if (!pn.matches(PN_PATT)) {
             Toast.makeText(SingUpActivity.this, R.string.correctPhone,
                     LENGTH_SHORT).show();
-        } else if (!em.matches(emPatt)) {
+        } else if (!em.matches(EM_PATT)) {
             Toast.makeText(SingUpActivity.this, R.string.invalidEmail,
                     LENGTH_SHORT).show();
-        } else if (!ps.matches(psPatt)) {
+        } else if (!ps.matches(PS_PATT)) {
             Toast.makeText(SingUpActivity.this, R.string.correctPassword,
                     LENGTH_SHORT).show();
         } else if (!(em.isEmpty() && ps.isEmpty())) {
