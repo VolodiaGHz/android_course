@@ -51,8 +51,6 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this,
                             R.string.pleaseLogin, LENGTH_SHORT).show();
                 }
-
-
             }
         };
 
@@ -62,7 +60,6 @@ public class LoginActivity extends AppCompatActivity {
                 buttonToLogin();
             }
         });
-
 
         tvUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,8 +96,6 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (!task.isSuccessful()) {
                             Toast.makeText(LoginActivity.this,
-
-
                                     R.string.incorrectData,
                                     LENGTH_SHORT).show();
                         } else {
@@ -120,8 +115,6 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
-
         Intent i = new Intent(LoginActivity.this, SingUpActivity.class);
         startActivity(i);
     }
