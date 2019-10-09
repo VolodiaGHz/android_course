@@ -17,7 +17,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private TextView tv;
     private Button btn;
-    static int time;
+    private static int time;
     private FirebaseAuth fAuth;
     private long backPressedTime;
 
