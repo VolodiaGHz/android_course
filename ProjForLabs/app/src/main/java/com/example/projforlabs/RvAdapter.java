@@ -1,108 +1,70 @@
 package com.example.projforlabs;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
 public class RvAdapter extends RecyclerView.Adapter<RvAdapter.DriverViewHolder> {
-    public static class DriverViewHolder extends RecyclerView.ViewHolder{
-        private CardView cv;
-        private TextView driverName;
-        private TextView carModel;
-        private TextView reiting;
-        private TextView status;
-        private SwipeRefreshLayout refreshLayout;
 
-        DriverViewHolder(View itemView){
-            super(itemView);
+    private List<Driver> drivers;
 
-            cv = (CardView)itemView.findViewById(R.id.cv);
-            refreshLayout = (SwipeRefreshLayout)itemView.findViewById(R.id.swipe);
-            driverName = (TextView)itemView.findViewById(R.id.driver_name);
-            carModel = (TextView)itemView.findViewById(R.id.car_model);
-            status = (TextView)itemView.findViewById(R.id.status);
-            reiting = (TextView)itemView.findViewById(R.id.reiting);
-
-
-
-        }
-    }
-
-    List<Driver> drivers;
-
-    RvAdapter(List<Driver> drivers){
+    RvAdapter(List<Driver> drivers) {
         this.drivers = drivers;
     }
 
 
     @Override
-    public DriverViewHolder onCreateViewHolder(ViewGroup viewGroup, int i){
+    public DriverViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.item, viewGroup, false);
-        DriverViewHolder dvh = new DriverViewHolder(v);
-        return dvh;
+        DriverViewHolder driverViewHolder = new DriverViewHolder(v);
+        return driverViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(final DriverViewHolder driverViewHolder, final int i){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://us-central1-android-course-528bc.cloudfunctions.net/")
-                .addConverterFactory(GsonConverterFactory.create()).build();
-
-        JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
-
-        Call<List<Driver>> call = jsonPlaceHolderApi.getDriver();
-
-        call.enqueue(new Callback<List<Driver>>() {
-            @Override
-            public void onResponse(Call<List<Driver>> call, Response<List<Driver>> response) {
-                if (!response.isSuccessful()){
-                    return;
-                }
-                List<Driver> drivers =response.body();
-                for (Driver driver: drivers){
-                    if (drivers.size() > i) {
-                        driverViewHolder.driverName.setText(drivers.get(i).getName());
-                        driverViewHolder.carModel.setText(drivers.get(i).getCarModel());
-                        driverViewHolder.reiting.setText(drivers.get(i).getReiting());
-                        driverViewHolder.status.setText(drivers.get(i).getStatus());
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Driver>> call, Throwable t) {
-            }
-        });
-
+    public void onBindViewHolder(final DriverViewHolder driverViewHolder, final int i) {
+        Picasso.get().load(drivers.get(i).getPhoto()).into(driverViewHolder.avatar);
+        driverViewHolder.driverName.setText(drivers.get(i).getName());
+        driverViewHolder.carModel.setText(drivers.get(i).getCarModel());
+        driverViewHolder.reiting.setText(drivers.get(i).getReiting());
+        driverViewHolder.status.setText(drivers.get(i).getStatus());
     }
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView){
-        super.onAttachedToRecyclerView(recyclerView);
-
+    public int getItemCount() {
+        return drivers.size();
     }
 
-    @Override
-    public int getItemCount(){
-        return Log.d("Problem!", "Hello");
+    public static class DriverViewHolder extends RecyclerView.ViewHolder {
+        CardView cardView;
+        ImageView avatar;
+        TextView driverName;
+        TextView carModel;
+        TextView reiting;
+        TextView status;
+        SwipeRefreshLayout refreshLayout;
 
+        DriverViewHolder(View itemView) {
+            super(itemView);
+            cardView = (CardView) itemView.findViewById(R.id.cv);
+            refreshLayout = (SwipeRefreshLayout) itemView.findViewById(R.id.swipe);
+            avatar = (ImageView) itemView.findViewById(R.id.avatar);
+            driverName = (TextView) itemView.findViewById(R.id.driver_name);
+            carModel = (TextView) itemView.findViewById(R.id.car_model);
+            status = (TextView) itemView.findViewById(R.id.status);
+            reiting = (TextView) itemView.findViewById(R.id.reiting);
+        }
     }
-
 
 }
 
