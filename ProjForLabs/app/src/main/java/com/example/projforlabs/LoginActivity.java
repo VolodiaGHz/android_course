@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (firebaseUser != null) {
                     Toast.makeText(LoginActivity.this,
                             R.string.loginSucceful, LENGTH_SHORT).show();
-                    Intent i = new Intent(LoginActivity.this, WelcomeActivity.class);
+                    Intent i = new Intent(LoginActivity.this, RvActivity.class);
                     startActivity(i);
                 } else {
                     Toast.makeText(LoginActivity.this,
@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
                                     LENGTH_SHORT).show();
                         } else {
                             startActivity(new Intent(LoginActivity.this,
-                                    WelcomeActivity.class));
+                                    RvActivity.class));
                         }
 
                     }
