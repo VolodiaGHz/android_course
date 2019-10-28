@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme"
         android:name=".ApplicationStaff"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".RvActivity"></activity>
+        <activity android:name=".DriverListActivity"></activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".SingUpActivity">
             <intent-filter>

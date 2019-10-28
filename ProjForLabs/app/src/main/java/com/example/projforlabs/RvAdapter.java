@@ -15,13 +15,11 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class RvAdapter extends RecyclerView.Adapter<RvAdapter.DriverViewHolder> {
-
     private List<Driver> drivers;
 
-    RvAdapter(List<Driver> drivers) {
+    public RvAdapter(List<Driver> drivers) {
         this.drivers = drivers;
     }
-
 
     @Override
     public DriverViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
@@ -36,7 +34,7 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.DriverViewHolder> 
         Picasso.get().load(drivers.get(i).getPhoto()).into(driverViewHolder.avatar);
         driverViewHolder.driverName.setText(drivers.get(i).getName());
         driverViewHolder.carModel.setText(drivers.get(i).getCarModel());
-        driverViewHolder.reiting.setText(drivers.get(i).getReiting());
+        driverViewHolder.rating.setText(drivers.get(i).getRating());
         driverViewHolder.status.setText(drivers.get(i).getStatus());
     }
 
@@ -46,13 +44,13 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.DriverViewHolder> 
     }
 
     public static class DriverViewHolder extends RecyclerView.ViewHolder {
-        CardView cardView;
-        ImageView avatar;
-        TextView driverName;
-        TextView carModel;
-        TextView reiting;
-        TextView status;
-        SwipeRefreshLayout refreshLayout;
+        private CardView cardView;
+        private ImageView avatar;
+        private TextView driverName;
+        private TextView carModel;
+        private TextView rating;
+        private TextView status;
+        private SwipeRefreshLayout refreshLayout;
 
         DriverViewHolder(View itemView) {
             super(itemView);
@@ -62,7 +60,7 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.DriverViewHolder> 
             driverName = (TextView) itemView.findViewById(R.id.driver_name);
             carModel = (TextView) itemView.findViewById(R.id.car_model);
             status = (TextView) itemView.findViewById(R.id.status);
-            reiting = (TextView) itemView.findViewById(R.id.reiting);
+            rating = (TextView) itemView.findViewById(R.id.reiting);
         }
     }
 

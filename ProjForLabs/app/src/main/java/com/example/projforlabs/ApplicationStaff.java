@@ -6,22 +6,21 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApplicationStaff extends Application {
-    private JsonDataApi json;
+    private DataApi api;
 
     public void onCreate() {
         super.onCreate();
-        json = createApi();
+        api = createApi();
     }
 
-    public JsonDataApi getApi() {
-        return json;
+    public DataApi getApi() {
+        return api;
     }
 
-    public JsonDataApi createApi() {
+    public DataApi createApi() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://us-central1-android-course-528bc.cloudfunctions.net/")
                 .addConverterFactory(GsonConverterFactory.create()).build();
-
-        return retrofit.create(JsonDataApi.class);
+        return retrofit.create(DataApi.class);
     }
 }
