@@ -23,6 +23,7 @@
             android:layout_marginTop="7dp"
             android:textColor="@color/black"
             android:layout_toRightOf="@+id/avatar"
+            android:layout_marginRight="5dp"
             android:textSize="30sp" />
 
         <TextView
@@ -32,6 +33,7 @@
             android:layout_marginTop="47dp"
             android:textColor="@color/carModel"
             android:layout_toRightOf="@+id/avatar"
+            android:layout_marginRight="5dp"
             android:textSize="15sp"/>
 
         <TextView
@@ -41,6 +43,7 @@
             android:layout_marginTop="14dp"
             android:textColor="@color/reiting"
             android:layout_toRightOf="@+id/driver_name"
+            android:layout_marginRight="5dp"
             android:textSize="15sp"/>
 
         <TextView
@@ -50,6 +53,7 @@
             android:textColor="@color/status"
             android:layout_marginTop="87dp"
             android:layout_toRightOf="@+id/avatar"
+            android:layout_marginRight="5dp"
             android:textSize="15sp"/>
         <View
             android:layout_width="fill_parent"

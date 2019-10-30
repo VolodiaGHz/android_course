@@ -1,8 +1,6 @@
 package com.example.projforlabs;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 
@@ -10,8 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -36,20 +32,21 @@ public class DriverListActivity extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(llm);
         recyclerView.setHasFixedSize(true);
-        checkInternet();
+
         loadData();
         refresh();
+        checkInternet();
     }
 
     private void checkInternet() {
-        if (!networkConnectionCheck()) {
-            Snackbar.make(linearLayout, R.string.conError, Snackbar.LENGTH_SHORT);
-        }
+        IntentFilter filter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
+        NetworkCheck networkCheck = new NetworkCheck(linearLayout);
+        this.registerReceiver(networkCheck, filter);
     }
 
     private void loadData() {
-        final DataApi jsonApi = getApplicationEx().getApi();
-        final Call<List<Driver>> call = jsonApi.getDriver();
+        final DataApi api = getApplicationEx().getApi();
+        final Call<List<Driver>> call = api.getDriver();
         call.enqueue(new Callback<List<Driver>>() {
             @Override
             public void onResponse(Call<List<Driver>> call,
@@ -57,6 +54,7 @@ public class DriverListActivity extends AppCompatActivity {
                 adapter = new RvAdapter(response.body());
                 recyclerView.setAdapter(adapter);
             }
+
             @Override
             public void onFailure(Call<List<Driver>> call, Throwable t) {
 
@@ -73,21 +71,6 @@ public class DriverListActivity extends AppCompatActivity {
                 refreshLayout.setRefreshing(false);
             }
         });
-    }
-
-    private boolean networkConnectionCheck() {
-        try {
-            ConnectivityManager manager = (ConnectivityManager)
-                    getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo networkInfo = null;
-
-            if (manager != null) {
-                networkInfo = manager.getActiveNetworkInfo();
-            }
-            return networkInfo != null && networkInfo.isConnected();
-        } catch (NullPointerException e) {
-            return false;
-        }
     }
 
     private ApplicationStaff getApplicationEx() {
