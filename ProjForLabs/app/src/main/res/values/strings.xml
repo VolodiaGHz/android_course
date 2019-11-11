@@ -5,10 +5,10 @@
     <string name="sign_up">Sign up</string>
     <string name="here1"><u>Already have account? Sing in here!</u></string>
     <string name="here2"><u>Haven`t account? Sing up here!</u></string>
-    <string name="sign_in">Sign in</string>
+    <string name="sign_in">Login</string>
     <string name="cong">Congratulations</string>
     <string name="logout">Logout!</string>
-    <string name="welcome">Welcome </string>
+    <string name="welcome">Welcome</string>
     <string name="somethingGoneWrong">Something gone wrong</string>
     <string name="emailAlreeadyExist">Sorry but such email already used!</string>
     <string name="correctPhone">Phone must be 13 symbols, and starts with +380</string>
@@ -19,5 +19,7 @@
     <string name="loginSucceful">Login successful</string>
     <string name="pleaseLogin">Please Login!</string>
     <string name="incorrectData">Email Or Password Incorrect! Please Try Again</string>
+    <string name="conError">Internet connection losed!</string>
+    <string name="close">Close</string>
 
 </resources>

@@ -27,38 +27,32 @@ public class SingUpActivity extends AppCompatActivity {
     private EditText name;
     private EditText phone;
     private EditText email;
-    private EditText pass;
-    private Button btn;
-    private TextView tv;
-    private FirebaseAuth fAuth;
-
-    static final String EM_PATT = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-    static final String PS_PATT = ".{8,}";
-    static final String PN_PATT = "[+]380[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]";
-
+    private EditText password;
+    private Button buttonToSingUp;
+    private TextView moveToSingIn;
+    private FirebaseAuth firebaseAuth;
+    static final String EMAIL_PATTERN = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    static final String PASSWORD_PATTERN = ".{8,}";
+    static final String PHONE_PATTERN = "[+]380[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
-        fAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         name = findViewById(R.id.name);
         phone = findViewById(R.id.phone);
         email = findViewById(R.id.email);
-        pass = findViewById(R.id.pass);
-        btn = findViewById(R.id.singUpButton);
-        tv = findViewById(R.id.swapToLoginPage);
-
-        btn.setOnClickListener(new View.OnClickListener() {
+        password = findViewById(R.id.pass);
+        buttonToSingUp = findViewById(R.id.singUpButton);
+        moveToSingIn = findViewById(R.id.swapToLoginPage);
+        buttonToSingUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 buttonToSingUp();
             }
         });
-
-        tv.setOnClickListener(new View.OnClickListener() {
+        moveToSingIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(SingUpActivity.this, LoginActivity.class);
@@ -69,9 +63,8 @@ public class SingUpActivity extends AppCompatActivity {
 
     }
 
-
     private void addUserName(String nm) {
-        FirebaseUser user = fAuth.getCurrentUser();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
         UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
                 .setDisplayName(nm).build();
         if (user != null) {
@@ -80,13 +73,12 @@ public class SingUpActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         startActivity(new Intent(SingUpActivity.this,
-                                WelcomeActivity.class));
+                                DriverListActivity.class));
                     }
                 }
             });
         }
     }
-
 
     @SuppressLint("NewApi")
     @Override
@@ -96,7 +88,7 @@ public class SingUpActivity extends AppCompatActivity {
     }
 
     private void createUser(String em, String ps, final String nm) {
-        fAuth.createUserWithEmailAndPassword(em, ps)
+        firebaseAuth.createUserWithEmailAndPassword(em, ps)
                 .addOnCompleteListener(SingUpActivity.this,
                         new OnCompleteListener<AuthResult>() {
                             @Override
@@ -116,7 +108,7 @@ public class SingUpActivity extends AppCompatActivity {
         final String nm = name.getText().toString();
         final String pn = phone.getText().toString();
         final String em = email.getText().toString();
-        final String ps = pass.getText().toString();
+        final String ps = password.getText().toString();
 
         if (nm.isEmpty()) {
             name.setError("Please enter name!");
@@ -128,15 +120,15 @@ public class SingUpActivity extends AppCompatActivity {
             email.setError("Please enter your email!");
             email.requestFocus();
         } else if (ps.isEmpty()) {
-            pass.setError("Please enter password!");
-            pass.requestFocus();
-        } else if (!pn.matches(PN_PATT)) {
+            password.setError("Please enter password!");
+            password.requestFocus();
+        } else if (!pn.matches(PHONE_PATTERN)) {
             Toast.makeText(SingUpActivity.this, R.string.correctPhone,
                     LENGTH_SHORT).show();
-        } else if (!em.matches(EM_PATT)) {
+        } else if (!em.matches(EMAIL_PATTERN)) {
             Toast.makeText(SingUpActivity.this, R.string.invalidEmail,
                     LENGTH_SHORT).show();
-        } else if (!ps.matches(PS_PATT)) {
+        } else if (!ps.matches(PASSWORD_PATTERN)) {
             Toast.makeText(SingUpActivity.this, R.string.correctPassword,
                     LENGTH_SHORT).show();
         } else if (!(em.isEmpty() && ps.isEmpty())) {
@@ -146,5 +138,4 @@ public class SingUpActivity extends AppCompatActivity {
                     LENGTH_SHORT).show();
         }
     }
-
 }

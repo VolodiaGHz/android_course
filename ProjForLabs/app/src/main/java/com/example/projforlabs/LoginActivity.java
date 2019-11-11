@@ -21,31 +21,30 @@ import static android.widget.Toast.LENGTH_SHORT;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText email;
-    private EditText pass;
-    private Button btnIn;
-    private TextView tvUp;
-    private FirebaseAuth fAuth;
+    private EditText password;
+    private Button buttonToSingIN;
+    private TextView moveToSingUP;
+    private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        fAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         email = findViewById(R.id.loginEmail);
-        pass = findViewById(R.id.loginPass);
-        btnIn = findViewById(R.id.singInButton);
-        tvUp = findViewById(R.id.moveToSingUpActivity);
-
+        password = findViewById(R.id.loginPass);
+        buttonToSingIN = findViewById(R.id.singInButton);
+        moveToSingUP = findViewById(R.id.moveToSingUpActivity);
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser firebaseUser = fAuth.getCurrentUser();
+                FirebaseUser firebaseUser = LoginActivity.this.firebaseAuth.getCurrentUser();
                 if (firebaseUser != null) {
                     Toast.makeText(LoginActivity.this,
                             R.string.loginSucceful, LENGTH_SHORT).show();
-                    Intent i = new Intent(LoginActivity.this, WelcomeActivity.class);
+                    Intent i = new Intent(LoginActivity.this,
+                            DriverListActivity.class);
                     startActivity(i);
                 } else {
                     Toast.makeText(LoginActivity.this,
@@ -53,15 +52,13 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         };
-
-        btnIn.setOnClickListener(new View.OnClickListener() {
+        buttonToSingIN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 buttonToLogin();
             }
         });
-
-        tvUp.setOnClickListener(new View.OnClickListener() {
+        moveToSingUP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(LoginActivity.this, SingUpActivity.class);
@@ -71,16 +68,15 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-
     private void buttonToLogin() {
         String em = email.getText().toString();
-        String ps = pass.getText().toString();
+        String ps = password.getText().toString();
         if (em.isEmpty()) {
             email.setError("Please enter email!");
             email.requestFocus();
         } else if (ps.isEmpty()) {
-            pass.setError("Please enter password!");
-            pass.requestFocus();
+            password.setError("Please enter password!");
+            password.requestFocus();
         } else if (ps.isEmpty() && em.isEmpty()) {
             Toast.makeText(LoginActivity.this, R.string.emptyFields,
                     LENGTH_SHORT).show();
@@ -90,7 +86,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login(String em, String ps) {
-        fAuth.signInWithEmailAndPassword(em, ps).addOnCompleteListener(LoginActivity.this,
+        firebaseAuth.signInWithEmailAndPassword(em, ps)
+                .addOnCompleteListener(LoginActivity.this,
                 new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -100,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
                                     LENGTH_SHORT).show();
                         } else {
                             startActivity(new Intent(LoginActivity.this,
-                                    WelcomeActivity.class));
+                                    DriverListActivity.class));
                         }
 
                     }
@@ -110,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        fAuth.addAuthStateListener(authStateListener);
+        firebaseAuth.addAuthStateListener(authStateListener);
     }
 
     @Override
