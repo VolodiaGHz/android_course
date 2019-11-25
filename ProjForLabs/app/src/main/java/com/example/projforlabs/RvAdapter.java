@@ -1,11 +1,13 @@
 package com.example.projforlabs;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -16,17 +18,22 @@ import java.util.List;
 
 public class RvAdapter extends RecyclerView.Adapter<RvAdapter.DriverViewHolder> {
     private List<Driver> drivers;
+    private Context context;
 
-    public RvAdapter(List<Driver> drivers) {
+    public RvAdapter(Context context, List<Driver> drivers) {
+        this.context = context;
         this.drivers = drivers;
     }
 
+    @NonNull
     @Override
-    public DriverViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.item, viewGroup, false);
-        DriverViewHolder driverViewHolder = new DriverViewHolder(v);
-        return driverViewHolder;
+    public RvAdapter.DriverViewHolder onCreateViewHolder(@NonNull final ViewGroup parent,
+                                                         final int viewType) {
+        final View itemView = LayoutInflater
+                .from(parent.getContext())
+                .inflate(R.layout.item, parent, false);
+        //context = parent.getContext();
+        return new DriverViewHolder(itemView);
     }
 
     @Override
@@ -65,4 +72,3 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.DriverViewHolder> 
     }
 
 }
-

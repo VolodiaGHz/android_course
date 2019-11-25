@@ -21,5 +21,24 @@
     <string name="incorrectData">Email Or Password Incorrect! Please Try Again</string>
     <string name="conError">Internet connection losed!</string>
     <string name="close">Close</string>
+    <string name="driver_type">Driver type</string>
+    <string name="profile_picture">Profile picture</string>
+    <string name="update">Update</string>
+    <string name="enter_new_email">Enter new email</string>
+    <string name="enter_new_username">Enter new username</string>
+    <string name="tab2">Tab #2</string>
+    <string name="image_uploaded">Image uploaded!</string>
+    <string name="username_updated">Username is updated!</string>
+    <string name="email_updated">Email is updated!</string>
+    <string name="enter_username">Please enter username</string>
+    <string name="current_name">Nick: </string>
+    <string name="current_email">Email:</string>
+
+
+
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
