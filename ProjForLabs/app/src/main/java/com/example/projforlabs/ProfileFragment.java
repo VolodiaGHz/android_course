@@ -42,13 +42,15 @@ public class ProfileFragment extends Fragment {
     private Button logout;
     private Button nameRefresh;
     private Button emailRefresh;
-    private Button uploadPhoto;
+    private Button photoUpload;
     private TextView name;
     private TextView email;
     private ImageView avatar;
     private FirebaseUser user;
     private StorageReference Folder;
     private StorageReference ImageName;
+    private final int codeStatus = 1;
+
 
 
     @Nullable
@@ -69,7 +71,7 @@ public class ProfileFragment extends Fragment {
         logout = root.findViewById(R.id.logout_btn);
         nameRefresh = root.findViewById(R.id.refresh_name);
         emailRefresh = root.findViewById(R.id.refresh_email);
-        uploadPhoto = root.findViewById(R.id.upload_avatar);
+        photoUpload = root.findViewById(R.id.upload_avatar);
         avatar = root.findViewById(R.id.user_avatar);
         Folder = FirebaseStorage
                 .getInstance()
@@ -85,7 +87,7 @@ public class ProfileFragment extends Fragment {
         if (user != null) {
             name.setText(user.getDisplayName());
             email.setText(user.getEmail());
-            ImageName = Folder.child(user.getUid() + ".jpg");
+            ImageName = Folder.child(user.getUid());
             ImageName.getDownloadUrl()
                     .addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
@@ -98,8 +100,8 @@ public class ProfileFragment extends Fragment {
                     Toast.LENGTH_SHORT).show();
         }
 
-        nameUpdate();
-        emailUpdate();
+        updateName();
+        updateEmail();
         uploadAvatar();
         exit();
     }
@@ -109,9 +111,9 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 auth.signOut();
-                Intent i = new Intent(getActivity(),
+                Intent intent = new Intent(getActivity(),
                         LoginActivity.class);
-                startActivity(i);
+                startActivity(intent);
                 Objects.requireNonNull(getActivity())
                         .overridePendingTransition(0, 0);
             }
@@ -119,7 +121,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void uploadAvatar() {
-        uploadPhoto.setOnClickListener(new View.OnClickListener() {
+        photoUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 uploadProfilePicture();
@@ -127,7 +129,7 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    private void emailUpdate() {
+    private void updateEmail() {
         emailRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -142,7 +144,7 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    private void nameUpdate() {
+    private void updateName() {
         nameRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -162,7 +164,7 @@ public class ProfileFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 1) {
+        if (requestCode == codeStatus) {
             if (resultCode == RESULT_OK) {
                 Uri ImageData = Objects.requireNonNull(data).getData();
                 ImageName.putFile(Objects.requireNonNull(ImageData))
@@ -191,7 +193,7 @@ public class ProfileFragment extends Fragment {
     private void uploadProfilePicture() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
-        startActivityForResult(intent, 1);
+        startActivityForResult(intent, codeStatus);
     }
 
     private void updateUsernameData(final FirebaseUser user, final String newName) {

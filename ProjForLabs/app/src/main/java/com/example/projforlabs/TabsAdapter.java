@@ -11,8 +11,8 @@ import androidx.fragment.app.FragmentPagerAdapter;
 public class TabsAdapter extends FragmentPagerAdapter {
     private final String[] tabTitles = new String[]{"Drivers", "Blank", "Profile"};
 
-    public TabsAdapter(Context context, @NonNull FragmentManager fm) {
-        super(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+    public TabsAdapter(Context context, @NonNull FragmentManager fragmentManager) {
+        super(fragmentManager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
     }
 
     @NonNull

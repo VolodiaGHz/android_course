@@ -15,8 +15,8 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".MainActivity" />
-        <activity android:name=".DriverListFragment" />
         <activity android:name=".LoginActivity" />
+        <activity android:name=".DataContainerActivity"/>
         <activity android:name=".SingUpActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

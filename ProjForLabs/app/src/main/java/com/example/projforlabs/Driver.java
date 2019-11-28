@@ -9,14 +9,15 @@ public class Driver {
     //анотація лише тут, тому що назва в класі відрізняється від назви в json
     @SerializedName("car model")
     private String carModel;
+    @SerializedName("raiting")
     private String rating;
     private String status;
     private String photo;
 
-    public Driver(String name, String carModel, String raiting, String status, String photo) {
+    public Driver(String name, String carModel, String rating, String status, String photo) {
         this.name = name;
         this.carModel = carModel;
-        this.rating = raiting;
+        this.rating = rating;
         this.status = status;
         this.photo = photo;
     }
