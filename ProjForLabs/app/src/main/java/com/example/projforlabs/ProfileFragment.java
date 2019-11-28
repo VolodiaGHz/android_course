@@ -47,8 +47,8 @@ public class ProfileFragment extends Fragment {
     private TextView email;
     private ImageView avatar;
     private FirebaseUser user;
-    private StorageReference Folder;
-    private StorageReference ImageName;
+    private StorageReference folder;
+    private StorageReference imageName;
     private final int codeStatus = 1;
 
 
