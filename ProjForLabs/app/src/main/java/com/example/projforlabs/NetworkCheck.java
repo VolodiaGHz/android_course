@@ -36,4 +36,3 @@ public class NetworkCheck extends BroadcastReceiver {
         return false;
     }
 }
-

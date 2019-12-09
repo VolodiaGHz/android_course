@@ -73,7 +73,7 @@ public class SingUpActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         startActivity(new Intent(SingUpActivity.this,
-                                DriverListActivity.class));
+                                MainActivity.class));
                     }
                 }
             });

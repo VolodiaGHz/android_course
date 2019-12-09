@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this,
                             R.string.loginSucceful, LENGTH_SHORT).show();
                     Intent i = new Intent(LoginActivity.this,
-                            DriverListActivity.class);
+                            MainActivity.class);
                     startActivity(i);
                 } else {
                     Toast.makeText(LoginActivity.this,
@@ -88,20 +88,20 @@ public class LoginActivity extends AppCompatActivity {
     private void login(String em, String ps) {
         firebaseAuth.signInWithEmailAndPassword(em, ps)
                 .addOnCompleteListener(LoginActivity.this,
-                new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (!task.isSuccessful()) {
-                            Toast.makeText(LoginActivity.this,
-                                    R.string.incorrectData,
-                                    LENGTH_SHORT).show();
-                        } else {
-                            startActivity(new Intent(LoginActivity.this,
-                                    DriverListActivity.class));
-                        }
+                        new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (!task.isSuccessful()) {
+                                    Toast.makeText(LoginActivity.this,
+                                            R.string.incorrectData,
+                                            LENGTH_SHORT).show();
+                                } else {
+                                    startActivity(new Intent(LoginActivity.this,
+                                            MainActivity.class));
+                                }
 
-                    }
-                });
+                            }
+                        });
     }
 
     @Override
@@ -116,4 +116,3 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(i);
     }
 }
-
