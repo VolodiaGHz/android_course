@@ -36,7 +36,6 @@ public class DriverListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_data_list, container, false);
-
         initViews();
         checkInternetConnection();
         loadData();
