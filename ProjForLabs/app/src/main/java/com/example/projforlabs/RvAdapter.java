@@ -17,13 +17,23 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class RvAdapter extends RecyclerView.Adapter<RvAdapter.DriverViewHolder> {
-    private List<Driver> drivers;
+    public List<Driver> drivers;
     private Context context;
+
+//    public RvAdapter( Context context) {
+//        this.context = context;
+//    }
+
+    public RvAdapter(List<Driver> drivers) {
+        this.drivers = drivers;
+
+    }
 
     public RvAdapter(Context context, List<Driver> drivers) {
         this.context = context;
         this.drivers = drivers;
     }
+
 
     @NonNull
     @Override
@@ -38,18 +48,21 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.DriverViewHolder> 
 
     @Override
     public void onBindViewHolder(final DriverViewHolder driverViewHolder, final int i) {
-        Picasso.get().load(drivers.get(i).getPhoto()).into(driverViewHolder.avatar);
-        driverViewHolder.driverName.setText(drivers.get(i).getName());
-        driverViewHolder.carModel.setText(drivers.get(i).getCarModel());
-        driverViewHolder.rating.setText(drivers.get(i).getRating());
-        driverViewHolder.status.setText(drivers.get(i).getStatus());
-        driverViewHolder.layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openItemDetails(i);
-            }
-        });
+            Picasso.get().load(drivers.get(i).getPhoto()).into(driverViewHolder.avatar);
+            driverViewHolder.driverName.setText(drivers.get(i).getName());
+            driverViewHolder.carModel.setText(drivers.get(i).getCarModel());
+            driverViewHolder.rating.setText(drivers.get(i).getRating());
+            driverViewHolder.status.setText(drivers.get(i).getStatus());
+            driverViewHolder.layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    openItemDetails(i);
+
+                }
+            });
+
     }
+
 
     private void openItemDetails(int position) {
         Intent intent = new Intent(context, DataContainerActivity.class);
@@ -66,6 +79,8 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.DriverViewHolder> 
     public int getItemCount() {
         return drivers.size();
     }
+
+
 
     public static class DriverViewHolder extends RecyclerView.ViewHolder {
         private ImageView avatar;
